@@ -1,25 +1,24 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
 import { COLORS, SIZES } from '../../constants'
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 
 
-const ProductCardView = () => {
+const ProductCardView = ({item}) => {
     const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() =>navigation.navigate("ProductDetails")}>
+    <TouchableOpacity onPress={() =>navigation.navigate("ProductDetails",{item})}>
         <View style= {styles.container}>
             <View style= {styles.imageContainer}>
                 <Image
-                source={{uri:"https://nydesignagenda.com/wp-content/uploads/2018/12/Luxury-Guide-The-Most-Expensive-Furniture-Brands-1.jpg"}}
+                source={{uri:item.imageUrl,}}
                 style={styles.image}
                 />
             </View>
             <View style={styles.details}>
-                <Text style={styles.title} numberOfLines={1}> Product</Text>
-                <Text style={styles.supplier} numberOfLines={1}> Product</Text>
-                <Text style={styles.price}> $2300</Text>
+                <Text style={styles.title} numberOfLines={1}> {item.title}</Text>
+                <Text style={styles.supplier} numberOfLines={1}> {item.supplier}</Text>
+                <Text style={styles.price}> ${item.price}</Text>
             </View>
             <TouchableOpacity style={styles.addBtn}>
                 <Ionicons name="add-circle" size={35} color={COLORS.primary}/>
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
     },
     title:{
         fontFamily:"bold",
-        fontSize:SIZES.large,
+        fontSize:SIZES.large-2,
         marginBottom:2
     },
     supplier:{

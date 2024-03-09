@@ -1,9 +1,15 @@
-import { StyleSheet, Text,Image, View,TouchableOpacity } from 'react-native'
-import { COLORS, SIZES  } from '../constants'
-import { Fontisto, Ionicons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
-import { useState } from 'react'
+import { StyleSheet, Text,Image, View,TouchableOpacity } from 'react-native';
+import { COLORS, SIZES  } from '../constants';
+import { useRoute } from '@react-navigation/native';
+import { Fontisto, Ionicons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
+import { useState } from 'react';
 
 const ProductDetails = ({navigation}) => {
+
+  const route = useRoute();
+  const{item} = route.params;
+  // console.log(item);
+
   const[count, setCount]= useState(0)
 
   const increment =() =>{
@@ -28,15 +34,15 @@ const ProductDetails = ({navigation}) => {
       </View>
 
       <Image
-        source={{uri:"https://nydesignagenda.com/wp-content/uploads/2018/12/Luxury-Guide-The-Most-Expensive-Furniture-Brands-1.jpg"}}
+        source={{uri:item.imageUrl}}
         style={styles.image}
       />
       <View style={styles.details}>
       <View style={styles.titleRow}>
-        <Text style={styles.title}>Product</Text>
+        <Text style={styles.title}>{item.title}</Text>
 
         <View style={styles.priceWrapper}>
-          <Text style={styles.price}>$2300</Text>
+          <Text style={styles.price}>${item.price}</Text>
         </View>
 
       </View>
@@ -69,13 +75,13 @@ const ProductDetails = ({navigation}) => {
       </View>
       <View style={styles.descriptionWraper}>
         <Text style={styles.description}>Description</Text>
-        <Text style={styles.descText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</Text>
+        <Text style={styles.descText}>{item.description}</Text>
       </View> 
       <View style={{marginBottom:SIZES.small}}>
         <View style={styles.location}>
             <View style={{flexDirection:"row"}}>
               <Ionicons name="location-outline" size={20}/>
-              <Text>    Bangalore  </Text>
+              <Text>    {item.product_location}  </Text>
             </View>
             <View style={{flexDirection:"row"}}>
               <MaterialCommunityIcons name="truck-delivery-outline" size={20}/>
